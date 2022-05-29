@@ -1,13 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from './Components/Home';
+import Header from './Components/Header';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className='App'>
-      <header>
-        <h1>NC Games by August</h1>
-      </header>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/categories/:category' element={<Home />} />
+      </Routes>
     </div>
   );
 }
