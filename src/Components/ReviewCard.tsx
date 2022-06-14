@@ -1,4 +1,4 @@
-import { ReviewProps } from './Home';
+import { ReviewProps } from './Reviews';
 
 export default function ReviewCard({ reviewInfo }: ReviewProps) {
   return (

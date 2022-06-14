@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ReviewCard from './ReviewCard';
 
 interface Review {
   review_id: number;
@@ -48,9 +47,10 @@ export default function Home() {
       <section id='reviews-list'>
         {reviews.map((review: Review) => {
           return (
-            <article key={review.review_id} className='review-article'>
-              <ReviewCard reviewInfo={review} />;
-            </article>
+            <article
+              key={review.review_id}
+              className='review-article'
+            ></article>
           );
         })}
       </section>
