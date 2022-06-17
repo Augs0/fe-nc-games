@@ -15,13 +15,9 @@ interface Review {
   comment_count: string;
 }
 
-// const isReview = (x : Review | {}) => (x is Review) {
-//   return (typeof x.review_id === 'number' )
-//   }
-
 export default function SingleReview() {
-  const [currReview, setCurrReview] = useState<Review>({} as Review);
-  // const [currReview, setCurrReview] =  useState<Review | {}>({})
+  // const [currReview, setCurrReview] = useState<Review>({} as Review);
+  const [currReview, setCurrReview] = useState<Review | null>(null);
 
   const { review_id } = useParams();
 
@@ -30,7 +26,8 @@ export default function SingleReview() {
       setCurrReview(reviewFromApi);
     });
   }, [review_id]);
-  return (
+
+  return currReview !== null ? (
     <section className='pa3 pa5-ns' id='review-section'>
       <h2 className='f2'>{currReview.title}</h2>
       <p className='db measure lh-copy'>written by: {currReview.owner}</p>
@@ -43,5 +40,7 @@ export default function SingleReview() {
       <p className='measure lh-copy'>Posted on: {currReview.created_at}</p>
       <p className='measure lh-copy'>{currReview.review_body}</p>
     </section>
+  ) : (
+    <p>Something went wrong</p>
   );
 }
