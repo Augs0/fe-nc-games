@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getReviews } from '../utils/apiCalls';
 import ReviewCard from './ReviewCard';
 
@@ -13,6 +13,7 @@ interface Review {
   review_body: string;
   review_img_url: string;
   votes: number;
+  comment_count: string;
 }
 
 export interface ReviewProps {
@@ -32,27 +33,17 @@ export default function Reviews() {
   }, [category]);
 
   return (
-    <>
-      <nav>
-        <li>
-          <Link to='/categories/dexterity'>Dexterity</Link>
-        </li>
-        <li>
-          <Link to='/categories/hidden-roles'>Hidden Roles</Link>
-        </li>
-        <li>
-          <Link to='/categories/strategy'>Strategy</Link>
-        </li>
-      </nav>
-      <section id='reviews-list'>
-        {reviews.map((review: Review) => {
-          return (
-            <article key={review.review_id} className='review-article'>
-              <ReviewCard reviewInfo={review} />;
-            </article>
-          );
-        })}
-      </section>
-    </>
+    <section className='mw9 center' id='reviews-list'>
+      {reviews.map((review: Review) => {
+        return (
+          <article
+            className='bt bb b--black-10 review-article'
+            key={review.review_id}
+          >
+            <ReviewCard reviewInfo={review} />
+          </article>
+        );
+      })}
+    </section>
   );
 }

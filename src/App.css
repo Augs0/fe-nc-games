@@ -4,17 +4,54 @@
   margin: 0;
 }
 
+header {
+  text-align: center;
+}
+
+header a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+header a:visited {
+  color: black;
+}
+
+.nav-link:visited {
+  color: rgb(5, 52, 5);
+}
+
 #reviews-list {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  margin: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .review-article img {
   display: block;
   max-width: 100%;
 }
+
+.review-link {
+  margin: 0.5rem 0;
+}
+
+.review-link:hover {
+  background-color: black;
+  color: ghostwhite;
+}
+
+/* #review-section img {
+  width: 50%;
+} */
 
 @media (min-width: 600px) {
   #reviews-list {
