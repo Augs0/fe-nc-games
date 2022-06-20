@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getReviews } from '../utils/apiCalls';
 import ReviewCard from './ReviewCard';
 
-interface Review {
+export interface Review {
   review_id: number;
   title: string;
   category: string;

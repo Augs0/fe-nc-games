@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getReviewById } from '../utils/apiCalls';
+import Moment from 'react-moment';
 
 interface Review {
   review_id: number;
@@ -18,7 +19,6 @@ interface Review {
 export default function SingleReview() {
   // const [currReview, setCurrReview] = useState<Review>({} as Review);
   const [currReview, setCurrReview] = useState<Review | null>(null);
-
   const { review_id } = useParams();
 
   useEffect(() => {
@@ -28,8 +28,8 @@ export default function SingleReview() {
   }, [review_id]);
 
   return currReview !== null ? (
-    <section className='pa3 pa5-ns' id='review-section'>
-      <h2 className='f2'>{currReview.title}</h2>
+    <section className='mw9 center pa3 pa5-ns' id='review-section'>
+      <h2 className='highlight f2'>{currReview.title}</h2>
       <p className='db measure lh-copy'>written by: {currReview.owner}</p>
       <img
         className='w-100 f5 measure'
@@ -37,10 +37,12 @@ export default function SingleReview() {
         alt={currReview.title}
       />
       <p className='measure lh-copy'>Comments: {currReview.comment_count}</p>
-      <p className='measure lh-copy'>Posted on: {currReview.created_at}</p>
-      <p className='measure lh-copy'>{currReview.review_body}</p>
+      <p className='measure lh-copy'>
+        Posted on: <Moment format='DD/MM/YYYY'>{currReview.created_at}</Moment>
+      </p>
+      <p className='body measure lh-copy'>{currReview.review_body}</p>
     </section>
   ) : (
-    <p>Something went wrong</p>
+    <p className='measure lh-copy'>Something went wrong</p>
   );
 }

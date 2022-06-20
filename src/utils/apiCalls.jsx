@@ -24,3 +24,11 @@ export const getReviewById = (review_id) => {
     return data;
   });
 };
+
+export const patchVotes = (review_id, inc_votes) => {
+  return apiUrl
+    .patch(`/reviews/${review_id}`, { inc_votes })
+    .then(({ data }) => {
+      return data;
+    });
+};

@@ -1,7 +1,20 @@
+:root {
+  --highlight-colour: #19a974;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+.highlight {
+  margin-bottom: 0.8rem;
+  border-bottom: 0.3rem solid var(--highlight-colour);
 }
 
 header {
@@ -17,11 +30,16 @@ header a:visited {
   color: black;
 }
 
+section {
+  background-color: ghostwhite;
+}
+
 .nav-link:visited {
   color: rgb(5, 52, 5);
 }
 
-#reviews-list {
+#reviews-list,
+#review-section {
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -47,6 +65,12 @@ header a:visited {
 .review-link:hover {
   background-color: black;
   color: ghostwhite;
+}
+
+.body {
+  border: solid 2px var(--highlight-colour);
+  padding: 0.5rem;
+  border-radius: 0.8rem;
 }
 
 /* #review-section img {
