@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getReviewById } from '../utils/apiCalls';
 import Comments from './Comments';
 import Moment from 'react-moment';
@@ -29,6 +29,7 @@ export default function SingleReview() {
   const [isOpen, setIsOpen] = useState(false);
   const [currReview, setCurrReview] = useState<Review | null>(null);
   const { review_id } = useParams();
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     getReviewById(review_id).then((reviewFromApi: Review) => {
@@ -37,6 +38,14 @@ export default function SingleReview() {
   }, [review_id]);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const currentBtn = btnRef.current;
+    if (currentBtn !== null) {
+      if (currentBtn.ariaExpanded === 'false') {
+        currentBtn.ariaExpanded = 'true';
+      } else if (currentBtn.ariaExpanded === 'true') {
+        currentBtn.ariaExpanded = 'false';
+      }
+    }
     setIsOpen(!isOpen);
   };
 
@@ -58,6 +67,9 @@ export default function SingleReview() {
         className='f6 grow b--green br-pill ba bw2 ph3 pv2 ma2 dib '
         id='show-comments-btn'
         onClick={handleClick}
+        aria-expanded='false'
+        aria-controls='comments'
+        ref={btnRef}
       >
         {isOpen ? 'Hide comments' : 'Show comments'}
       </button>

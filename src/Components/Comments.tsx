@@ -24,7 +24,7 @@ export default function Comments(props: openProp & ReviewId) {
   }, [id]);
 
   return isOpen === true ? (
-    <section>
+    <section id='comments'>
       <>
         <h2>Comments</h2>
         {comments.map((comment: SingleComment) => {
