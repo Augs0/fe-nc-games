@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getReviewById } from '../utils/apiCalls';
+import Comments from './Comments';
 import Moment from 'react-moment';
 
 interface Review {
@@ -16,8 +17,16 @@ interface Review {
   comment_count: string;
 }
 
+export interface openProp {
+  isOpen: boolean;
+}
+
+export interface ReviewId {
+  id: number;
+}
+
 export default function SingleReview() {
-  // const [currReview, setCurrReview] = useState<Review>({} as Review);
+  const [isOpen, setIsOpen] = useState(false);
   const [currReview, setCurrReview] = useState<Review | null>(null);
   const { review_id } = useParams();
 
@@ -26,6 +35,10 @@ export default function SingleReview() {
       setCurrReview(reviewFromApi);
     });
   }, [review_id]);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setIsOpen(!isOpen);
+  };
 
   return currReview !== null ? (
     <section className='mw9 center pa3 pa5-ns' id='review-section'>
@@ -41,6 +54,14 @@ export default function SingleReview() {
         Posted on: <Moment format='DD/MM/YYYY'>{currReview.created_at}</Moment>
       </p>
       <p className='body measure lh-copy'>{currReview.review_body}</p>
+      <button
+        className='f6 grow b--green br-pill ba bw2 ph3 pv2 ma2 dib '
+        id='show-comments-btn'
+        onClick={handleClick}
+      >
+        View comments
+      </button>
+      <Comments isOpen={isOpen} id={currReview.review_id} />
     </section>
   ) : (
     <p className='measure lh-copy'>Something went wrong</p>

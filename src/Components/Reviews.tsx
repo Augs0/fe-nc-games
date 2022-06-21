@@ -21,7 +21,6 @@ export interface ReviewProps {
 }
 
 export default function Reviews() {
-  // need to improve type here
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const { category } = useParams();

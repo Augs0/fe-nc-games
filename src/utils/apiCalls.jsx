@@ -32,3 +32,9 @@ export const patchVotes = (review_id, inc_votes) => {
       return data;
     });
 };
+
+export const getComments = (review_id) => {
+  return apiUrl.get(`/reviews/${review_id}/comments`).then(({ data }) => {
+    return data;
+  });
+};
