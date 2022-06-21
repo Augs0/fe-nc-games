@@ -59,7 +59,7 @@ export default function SingleReview() {
         id='show-comments-btn'
         onClick={handleClick}
       >
-        View comments
+        {isOpen ? 'Hide comments' : 'Show comments'}
       </button>
       <Comments isOpen={isOpen} id={currReview.review_id} />
     </section>
