@@ -1,6 +1,7 @@
 import { openProp, ReviewId } from './SingleReview';
 import { useState, useEffect } from 'react';
 import Moment from 'react-moment';
+import PostComment from './PostCommet';
 
 import { getComments } from '../utils/apiCalls';
 
@@ -12,6 +13,10 @@ export interface SingleComment {
   created_at: string;
 }
 
+export interface stateProps {
+  setComments: React.Dispatch<React.SetStateAction<[] | SingleComment[]>>;
+}
+
 export default function Comments(props: openProp & ReviewId) {
   const { isOpen, id } = props;
   const [comments, setComments] = useState<SingleComment[] | []>([]);
@@ -20,11 +25,12 @@ export default function Comments(props: openProp & ReviewId) {
     getComments(id).then((commentsFromApi: SingleComment[]) => {
       setComments(commentsFromApi);
     });
-  }, [id]);
+  }, [id, comments]);
 
   return isOpen === true ? (
     <section id='comments'>
       <>
+        <PostComment setComments={setComments} id={id} />
         <h2>Comments</h2>
         {comments.map((comment: SingleComment) => {
           return (
