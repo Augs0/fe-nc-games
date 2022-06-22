@@ -18,7 +18,6 @@ export default function Comments(props: openProp & ReviewId) {
 
   useEffect(() => {
     getComments(id).then((commentsFromApi: SingleComment[]) => {
-      console.log(commentsFromApi);
       setComments(commentsFromApi);
     });
   }, [id]);

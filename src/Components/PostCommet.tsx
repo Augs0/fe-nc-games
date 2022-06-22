@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { postComment } from '../utils/apiCalls';
+import { ReviewId } from './SingleReview';
 
-export default function PostComment() {
+export default function PostComment({ id }: ReviewId) {
   const [commentFormBody, setCommentFormBody] = useState<string>('');
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCommentFormBody(event.target.value);
-    console.log(event.target.value);
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    postComment(id, commentFormBody);
   };
   return (
     <form id='comment-form' onSubmit={handleSubmit}>

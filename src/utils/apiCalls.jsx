@@ -38,3 +38,15 @@ export const getComments = (review_id) => {
     return data;
   });
 };
+
+export const postComment = (review_id, body) => {
+  return apiUrl
+    .post(`reviews/${review_id}/comments`, {
+      username: 'cooljmessy',
+      body: body,
+    })
+    .then(({ data }) => {
+      console.log(data);
+      return data;
+    });
+};
