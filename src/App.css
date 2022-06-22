@@ -34,6 +34,17 @@ section {
   background-color: ghostwhite;
 }
 
+input:focus,
+textarea:focus {
+  outline-color: var(--highlight-colour);
+}
+
+input,
+textarea {
+  font-size: 1.2rem;
+  padding: 0.3rem;
+}
+
 .nav-link:visited {
   color: rgb(5, 52, 5);
 }
@@ -73,9 +84,10 @@ section {
   border-radius: 0.8rem;
 }
 
-/* #review-section img {
-  width: 50%;
-} */
+#comment-form {
+  display: flex;
+  flex-direction: column;
+}
 
 @media (min-width: 600px) {
   #reviews-list {

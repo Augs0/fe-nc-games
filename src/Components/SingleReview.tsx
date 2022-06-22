@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { getReviewById } from '../utils/apiCalls';
 import Comments from './Comments';
 import Moment from 'react-moment';
+import PostComment from './PostCommet';
 
 interface Review {
   review_id: number;
@@ -62,7 +63,7 @@ export default function SingleReview() {
       <p className='measure lh-copy'>
         Posted on: <Moment format='DD/MM/YYYY'>{currReview.created_at}</Moment>
       </p>
-      <p className='body measure lh-copy'>{currReview.review_body}</p>
+      <PostComment />
       <button
         className='f6 grow b--green br-pill ba bw2 ph3 pv2 ma2 dib '
         id='show-comments-btn'
