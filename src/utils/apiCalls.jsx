@@ -10,9 +10,10 @@ export const getCategories = () => {
   });
 };
 
-export const getReviews = (category) => {
+export const getReviews = (category, sort_by) => {
   let path = '/reviews';
   if (category) path += `?category=${category}`;
+  if (sort_by) path += `?sort_by=${sort_by}`;
   return apiUrl.get(path).then(({ data }) => {
     return data.reviews;
   });

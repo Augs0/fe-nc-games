@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from '../utils/apiCalls';
 import ReviewCard from './ReviewCard';
+import Sort from './Sort';
 
 export interface Review {
   review_id: number;
@@ -20,6 +21,10 @@ export interface ReviewProps {
   reviewInfo: Review;
 }
 
+export interface stateProps {
+  setReviews: React.Dispatch<React.SetStateAction<[] | Review[]>>;
+}
+
 export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -33,6 +38,7 @@ export default function Reviews() {
 
   return (
     <section className='mw9 center' id='reviews-list'>
+      <Sort setReviews={setReviews} />
       {reviews.map((review: Review) => {
         return (
           <article
