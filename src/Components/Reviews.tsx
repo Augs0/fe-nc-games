@@ -37,18 +37,22 @@ export default function Reviews() {
   }, [category]);
 
   return (
-    <section className='mw9 center' id='reviews-list'>
-      <Sort setReviews={setReviews} />
-      {reviews.map((review: Review) => {
-        return (
-          <article
-            className='bt bb b--black-10 review-article'
-            key={review.review_id}
-          >
-            <ReviewCard reviewInfo={review} />
-          </article>
-        );
-      })}
-    </section>
+    <>
+      <nav>
+        <Sort setReviews={setReviews} />
+      </nav>
+      <section className='mw9 center' id='reviews-list'>
+        {reviews.map((review: Review) => {
+          return (
+            <article
+              className='bt bb b--black-10 review-article'
+              key={review.review_id}
+            >
+              <ReviewCard reviewInfo={review} />
+            </article>
+          );
+        })}
+      </section>
+    </>
   );
 }
