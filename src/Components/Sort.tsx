@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { Review, stateProps } from './Reviews';
 
-export default function Sort({ setReviews }: stateProps) {
+export default function Sort({ setReviews, setErrorStatus }: stateProps) {
   const [chosenSort, setChosenSort] = useState<string>('created_at');
   const [chosenOrder, setChosenOrder] = useState<string>('desc');
+
   let { category } = useParams();
 
   let [, setSearchParams] = useSearchParams({
@@ -38,9 +39,15 @@ export default function Sort({ setReviews }: stateProps) {
       order: chosenOrder,
       category: category,
     };
-    getReviews(categorySearchParams).then((reviewsFromApi: Review[]) => {
-      setReviews(reviewsFromApi);
-    });
+    getReviews(categorySearchParams)
+      .then((reviewsFromApi: Review[]) => {
+        setReviews(reviewsFromApi);
+      })
+      .catch((err) => {
+        if (err) {
+          setErrorStatus(true);
+        }
+      });
   }, [category, chosenSort, chosenOrder]);
 
   return (

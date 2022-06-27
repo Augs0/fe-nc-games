@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from '../utils/apiCalls';
 import ReviewCard from './ReviewCard';
+import NotFound from './NotFound';
 import Sort from './Sort';
 
 export interface Review {
@@ -23,23 +24,33 @@ export interface ReviewProps {
 
 export interface stateProps {
   setReviews: React.Dispatch<React.SetStateAction<[] | Review[]>>;
+  setErrorStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [errorStatus, setErrorStatus] = useState<boolean>(false);
 
   const { category } = useParams();
 
   useEffect(() => {
-    getReviews(category).then((reviewsFromApi: Review[]) => {
-      setReviews(reviewsFromApi);
-    });
+    getReviews(category)
+      .then((reviewsFromApi: Review[]) => {
+        setReviews(reviewsFromApi);
+      })
+      .catch((err) => {
+        if (err) {
+          setErrorStatus(true);
+        }
+      });
   }, [category]);
+
+  if (errorStatus) return <NotFound />;
 
   return (
     <>
       <nav>
-        <Sort setReviews={setReviews} />
+        <Sort setErrorStatus={setErrorStatus} setReviews={setReviews} />
       </nav>
       <section className='mw9 center' id='reviews-list'>
         {reviews.map((review: Review) => {

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { getReviewById } from '../utils/apiCalls';
 import Comments from './Comments';
 import Moment from 'react-moment';
+import NotFound from './NotFound';
 
 interface Review {
   review_id: number;
@@ -28,13 +29,18 @@ export interface ReviewId {
 export default function SingleReview() {
   const [isOpen, setIsOpen] = useState(false);
   const [currReview, setCurrReview] = useState<Review | null>(null);
+  const [errorStatus, setErrorStatus] = useState<boolean>(false);
   const { review_id } = useParams();
   const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    getReviewById(review_id).then((reviewFromApi: Review) => {
-      setCurrReview(reviewFromApi);
-    });
+    getReviewById(review_id)
+      .then((reviewFromApi: Review) => {
+        setCurrReview(reviewFromApi);
+      })
+      .catch((err) => {
+        setErrorStatus(true);
+      });
   }, [review_id]);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -76,6 +82,6 @@ export default function SingleReview() {
       <Comments isOpen={isOpen} id={currReview.review_id} />
     </section>
   ) : (
-    <p className='measure lh-copy'>Something went wrong</p>
+    <NotFound />
   );
 }
