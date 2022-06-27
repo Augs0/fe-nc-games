@@ -1,11 +1,15 @@
 import { getReviews } from '../utils/apiCalls';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Review, stateProps } from './Reviews';
 
 export default function Sort({ setReviews }: stateProps) {
   const [chosenSort, setChosenSort] = useState<string>('');
   let { category } = useParams();
+
+  let [, setSearchParams] = useSearchParams({
+    sort_by: 'created_at',
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === 'date') {
@@ -18,10 +22,15 @@ export default function Sort({ setReviews }: stateProps) {
   };
 
   useEffect(() => {
-    getReviews(category, chosenSort).then((reviewsFromApi: Review[]) => {
+    setSearchParams({ sort_by: chosenSort });
+    const categorySearchParams = {
+      sort_by: chosenSort,
+      category: category,
+    };
+    getReviews(categorySearchParams).then((reviewsFromApi: Review[]) => {
       setReviews(() => reviewsFromApi);
     });
-  }, [chosenSort]);
+  }, [category, setSearchParams, setReviews, chosenSort]);
 
   return (
     <div id='sort-select' className='avenir'>
