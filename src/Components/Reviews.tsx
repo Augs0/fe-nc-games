@@ -34,6 +34,7 @@ export default function Reviews() {
   const { category } = useParams();
 
   useEffect(() => {
+    setErrorStatus(false);
     getReviews(category)
       .then((reviewsFromApi: Review[]) => {
         setReviews(reviewsFromApi);
