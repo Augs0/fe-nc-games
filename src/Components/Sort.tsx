@@ -35,7 +35,7 @@ export default function Sort({ setReviews }: stateProps) {
     setSearchParams({ sort_by: chosenSort, order_by: chosenOrder });
     const categorySearchParams = {
       sort_by: chosenSort,
-      order_by: chosenOrder,
+      order: chosenOrder,
       category: category,
     };
     getReviews(categorySearchParams).then((reviewsFromApi: Review[]) => {

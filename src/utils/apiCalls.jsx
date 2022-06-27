@@ -12,7 +12,6 @@ export const getCategories = () => {
 
 export const getReviews = (searchParams) => {
   return apiUrl.get('/reviews', { params: searchParams }).then(({ data }) => {
-    console.log(data.reviews);
     return data.reviews;
   });
 };
