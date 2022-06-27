@@ -25,6 +25,7 @@ export default function ReviewCard({ reviewInfo }: ReviewProps) {
       </p>
 
       <Vote reviewVotes={reviewInfo.votes} reviewId={reviewInfo.review_id} />
+      <p className='f6 f5-l lh-copy'>Comments: {reviewInfo.comment_count}</p>
       <Link
         className='f6 link review-link ba ph3 pv2 mb2 dib dark-green'
         to={`/reviews/${reviewInfo.review_id}`}

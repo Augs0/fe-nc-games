@@ -40,5 +40,7 @@ export default function Comments(props: openProp & ReviewId) {
         return <CommentCard commentInfo={comment} />;
       })}
     </section>
+  ) : comments.length === 0 ? (
+    <p>No comments for this article</p>
   ) : null;
 }
