@@ -47,7 +47,12 @@ export const postComment = (review_id, body) => {
       body: body,
     })
     .then(({ data }) => {
-      console.log(data);
       return data;
     });
+};
+
+export const deleteComment = (comment_id) => {
+  return apiUrl.delete(`/comments/${comment_id}`).then(({ data }) => {
+    return data;
+  });
 };

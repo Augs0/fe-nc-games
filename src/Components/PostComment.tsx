@@ -13,9 +13,9 @@ export default function PostComment(props: stateProps & ReviewId) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    postComment(id, commentFormBody).then((newComment) => {
+    postComment(id, commentFormBody).then(({ newComment }) => {
       setComments((prevComments) => {
-        return [...prevComments, newComment];
+        return [newComment, ...prevComments];
       });
     });
   };
