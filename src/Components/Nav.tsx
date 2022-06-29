@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../utils/apiCalls';
 
+interface Category {
+  slug: string;
+  description: string;
+}
+
 export default function Nav() {
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     getCategories().then((categoriesFromApi) => {

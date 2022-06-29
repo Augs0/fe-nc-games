@@ -5,7 +5,8 @@ import { SingleCommentProps } from './Comments';
 
 export default function CommentCard({ commentInfo }: SingleCommentProps) {
   const { author, body, created_at, votes, comment_id } = commentInfo;
-  const [deleteCommentStatus, setDeleteCommentStatus] = useState(false);
+  const [deleteCommentStatus, setDeleteCommentStatus] =
+    useState<boolean>(false);
 
   const handleDelete = (comment_id: number) => {
     deleteComment(comment_id).then(() => {
