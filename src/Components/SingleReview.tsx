@@ -4,6 +4,7 @@ import { getReviewById } from '../utils/apiCalls';
 import Comments from './Comments';
 import Moment from 'react-moment';
 import NotFound from './NotFound';
+import Loading from './Loading';
 
 interface Review {
   review_id: number;
@@ -27,7 +28,8 @@ export interface ReviewId {
 }
 
 export default function SingleReview() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currReview, setCurrReview] = useState<Review | null>(null);
   const [errorStatus, setErrorStatus] = useState<boolean>(false);
   const { review_id } = useParams();
@@ -37,6 +39,7 @@ export default function SingleReview() {
     getReviewById(review_id)
       .then((reviewFromApi: Review) => {
         setCurrReview(reviewFromApi);
+        setIsLoading(false);
       })
       .catch((err) => {
         setErrorStatus(true);
@@ -54,6 +57,9 @@ export default function SingleReview() {
     }
     setIsOpen(!isOpen);
   };
+
+  if (errorStatus) return <NotFound />;
+  if (isLoading) return <Loading isLoading={isLoading} />;
 
   return currReview !== null ? (
     <section className='mw9 center pa3 pa5-ns' id='review-section'>
@@ -81,7 +87,5 @@ export default function SingleReview() {
       </button>
       <Comments isOpen={isOpen} id={currReview.review_id} />
     </section>
-  ) : (
-    <NotFound />
-  );
+  ) : null;
 }

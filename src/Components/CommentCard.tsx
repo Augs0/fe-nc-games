@@ -21,7 +21,12 @@ export default function CommentCard({ commentInfo }: SingleCommentProps) {
         <Moment format='DD/MM/YYYY'>{created_at}</Moment>
       </p>
       <p className='f6 f5-l lh-copy ma1'>Votes for this comment: {votes}</p>
-      <button onClick={() => handleDelete(comment_id)}>Delete comment</button>
+      <button
+        className='f6 grow b--purple br-pill ba bw2 ph3 pv2 ma2 dib '
+        onClick={() => handleDelete(comment_id)}
+      >
+        Delete comment
+      </button>
     </article>
   ) : null;
 }

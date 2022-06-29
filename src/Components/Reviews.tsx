@@ -4,6 +4,7 @@ import { getReviews } from '../utils/apiCalls';
 import ReviewCard from './ReviewCard';
 import NotFound from './NotFound';
 import Sort from './Sort';
+import Loading from './Loading';
 
 export interface Review {
   review_id: number;
@@ -27,10 +28,14 @@ export interface stateProps {
   setErrorStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export interface loadingProp {
+  isLoading: boolean;
+}
+
 export default function Reviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [errorStatus, setErrorStatus] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { category } = useParams();
 
   useEffect(() => {
@@ -38,6 +43,7 @@ export default function Reviews() {
     getReviews(category)
       .then((reviewsFromApi: Review[]) => {
         setReviews(reviewsFromApi);
+        setIsLoading(false);
       })
       .catch((err) => {
         if (err) {
@@ -47,6 +53,7 @@ export default function Reviews() {
   }, [category]);
 
   if (errorStatus) return <NotFound />;
+  if (isLoading) return <Loading isLoading={isLoading} />;
 
   return (
     <>
